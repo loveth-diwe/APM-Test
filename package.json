@@ -2,7 +2,7 @@
   "name": "applepay-flow",
   "version": "1.0.0",
   "description": "Apple Pay Flow with Flask and React",
-  "main": "ApplePay.js",
+  "main": "src/ApplePay.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
