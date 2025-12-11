@@ -1,5 +1,5 @@
 # Apple Pay session - Tokenize and Pay
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory, render_template
 from flask_cors import CORS
 from checkout_sdk import CheckoutSdk
 from checkout_sdk.environment import Environment
@@ -31,7 +31,8 @@ payments_client = checkout_api.payments
 # Test to show FE and BE communicating ff
 @app.route('/')
 def get_data():
-    return jsonify({"message": "Hello from Flask!"})
+    #return jsonify({"message": "Hello from Flask!"})-----Commented 11/1225
+    return render_template('index.html')
 #Route for verify domain with apple pay file.
 @app.route('/.well-known/apple-developer-merchantid-domain-association.txt')
 def serve_apple_pay_verification():
