@@ -12,7 +12,7 @@ BUILD_FOLDER = BASE_DIR / 'build'
 app = Flask(__name__, static_folder=str(BUILD_FOLDER / 'static'), template_folder=str(BUILD_FOLDER))
 app.config["DEBUG"] = True
 
-CORS(app, origins=["https://apm-test.onrender.com"])
+CORS(app, origins=["https://apm-test-c5yi.onrender.com"])
 
 CHECKOUT_SECRET_KEY = os.environ.get('CHECKOUT_SECRET_KEY')
 CHECKOUT_PUBLIC_KEY = os.environ.get('CHECKOUT_PUBLIC_KEY')
