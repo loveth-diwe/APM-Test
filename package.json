@@ -1,5 +1,5 @@
 {
-  "name": "applepay-flow",
+  "name": "apm-test",
   "version": "1.0.0",
   "description": "Apple Pay Flow with Flask and React",
   "main": "src/ApplePay.js",
