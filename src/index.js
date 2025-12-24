@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import ApplePay from './ApplePay'; // Note: Ensure this file name matches your component file!
-import 'react-toastify/dist/ReactToastify.css'; // Add CSS for react-toastify
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './Home'; // Import the new Home component
+import ApplePay from './ApplePay';
+import GooglePay from './GooglePay';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
-// 1. Get the root element from index.html
-const container = document.getElementById('root');
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-// 2. Create a React root
-const root = ReactDOM.createRoot(container);
-
-// 3. Render your main component
 root.render(
   <React.StrictMode>
-    <ApplePay />
+    <BrowserRouter>
+      <ToastContainer />
+      <Routes>
+        {/* The Landing Page is now the root path */}
+        <Route path="/" element={<Home />} />
+
+        {/* Specific payment routes */}
+        <Route path="/applepay" element={<ApplePay />} />
+        <Route path="/googlepay" element={<GooglePay />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
