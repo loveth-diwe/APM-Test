@@ -62,14 +62,16 @@ const ApplePay = () => {
 
     const applePayButton = document.createElement('apple-pay-button');
     applePayButton.setAttribute('buttonstyle', 'black');
-    applePayButton.setAttribute('type', 'plain');
+    applePayButton.setAttribute('type', 'buy');
     applePayButton.setAttribute('locale', 'en-GB');
     // --- ADD THESE LINES BELOW ---
-    applePayButton.style.display = 'inline-block'; // Ensures it behaves like a block
+    applePayButton.style.display = 'block'; // Ensures it behaves like a block
     applePayButton.style.width = '100%';           // Sets the width to fill the container
     applePayButton.style.height = '50px';          // Sets a standard height for the button
     applePayButton.style.cursor = 'pointer';       // Makes it clear it's clickable
     // -----------------------------
+    // 3. Browser-Specific Graphics (Ensures the Apple logo shows up)
+    applePayButton.style.webkitAppearance = '-apple-pay-button'; //
     containerRef.current?.appendChild(applePayButton);
 
     applePayButton.addEventListener('click', handleApplePay);
