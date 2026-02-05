@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Default values to revert to
 const DEFAULT_CONFIG = {
-    publicKey: "pk_sbox_w5tsowjlb3s27oveipn5bmrs34f",
+    publicKey: "pk_sbox_uzuta5525nrhece4ke67nqtgpik",
     merchantId: "BCR2DN7TVH76T2QP",
     amount: "1.00",
     currency: "GBP",
