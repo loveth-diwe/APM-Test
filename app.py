@@ -1,4 +1,4 @@
-# Payment Session - Universal Wallet Processing
+ # Payment Session - Universal Wallet Processing
 from flask import Flask, jsonify, request, send_from_directory, render_template
 from flask_cors import CORS
 from checkout_sdk import CheckoutSdk
@@ -20,7 +20,7 @@ CHECKOUT_PUBLIC_KEY = os.environ.get('CHECKOUT_PUBLIC_KEY')
 # Apple Pay Specifics (Still needed for Apple validation only)
 APPLE_PAY_CERT = './certificate_sandbox.pem'
 APPLE_PAY_KEY = './certificate_sandbox.key'
-MERCHANT_ID = 'merchant.com.reactFlask.sandbox'
+MERCHANT_ID = 'merchant.lovethdiwe.sandbox'
 
 # Initialise Checkout SDK
 checkout_api = CheckoutSdk.builder() \
@@ -68,7 +68,7 @@ def process_payment():
             "amount": data["amount"],
             "currency": data["currencyCode"],
             "reference": f"{wallet_type}-demo-{uuid.uuid4().hex[:6]}",
-            "processing_channel_id": "pc_pxk25jk2hvuenon5nyv3p6nf2i",
+            "processing_channel_id": "pc_ksz7aa7a7gdu7oxgdqrak5allq",
         }
 
         # Risk Data
