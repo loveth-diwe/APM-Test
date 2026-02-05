@@ -11,7 +11,7 @@ const defaultConfig = {
     supportedNetworks: ['masterCard', 'visa', 'amex'],
     merchantCapabilities: ['supports3DS'],
     initiativeContext: 'apm-test-c5yi.onrender.com',
-    merchantIdentifier: 'merchant.com.reactFlask.sandbox',
+    merchantIdentifier: 'merchant.lovethdiwe.sandbox',
     displayName: 'APM Test Store',
     paymentMode: 'processPayment',
 };
