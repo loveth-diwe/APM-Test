@@ -97,7 +97,7 @@ const ApplePay = () => {
     session.onvalidatemerchant = async (event) => {
         try {
             // Risk.js Collection
-            const risk = await window.Risk.create("pk_sbox_w5tsowjlb3s27oveipn5bmrs34f");
+            const risk = await window.Risk.create("pk_sbox_uzuta5525nrhece4ke67nqtgpik");
             deviceSessionId = await risk.publishRiskData();
 
             // Merchant Validation
