@@ -6,21 +6,23 @@ from checkout_sdk.environment import Environment
 import json, os, uuid, requests, traceback
 from pathlib import Path
 
-# BASE_DIR is .../src
+# BASE_DIR is the root folder where app.py and .well-known live
 BASE_DIR = Path(__file__).resolve().parent
-# ROOT_DIR is .../ (where .well-known lives)
-ROOT_DIR = BASE_DIR.parent
-BUILD_FOLDER = BASE_DIR / 'build'
+# If you have a build folder for a frontend (e.g. React/Vue)
+BUILD_FOLDER = BASE_DIR / 'src' / 'build'
 
-app = Flask(__name__, static_folder=str(BUILD_FOLDER / 'static'), template_folder=str(BUILD_FOLDER))
+app = Flask(__name__,
+            static_folder=str(BUILD_FOLDER / 'static'),
+            template_folder=str(BUILD_FOLDER))
 app.config["DEBUG"] = True
 
+# Update CORS to your Render URL
 CORS(app, origins=["https://apm-test-c5yi.onrender.com"])
 
 CHECKOUT_SECRET_KEY = os.environ.get('CHECKOUT_SECRET_KEY')
 CHECKOUT_PUBLIC_KEY = os.environ.get('CHECKOUT_PUBLIC_KEY')
 
-# Apple Pay Specifics (Still needed for Apple validation only)
+# Apple Pay Specifics
 APPLE_PAY_CERT = './certificate_sandbox.pem'
 APPLE_PAY_KEY = './certificate_sandbox.key'
 MERCHANT_ID = 'merchant.lovethdiwe.sandbox'
@@ -38,11 +40,10 @@ def get_data():
     return render_template('index.html')
 
 
-# --- RENAMED UNIVERSAL ROUTE ---
+# --- UNIVERSAL PAYMENT ROUTE ---
 @app.route('/api/process-payment', methods=['POST'])
 def process_payment():
     data = request.get_json()
-    # Accept 'applepay' or 'googlepay' from frontend. Default to applepay for safety.
     wallet_type = data.get("walletType", "applepay")
 
     print(f"Processing {wallet_type} tokenization...")
@@ -92,18 +93,20 @@ def process_payment():
         return jsonify({"approved": False, "error": str(e), "status": "Failed"}), 400
 
 
-# Keep Apple-specific validation routes (Google Pay doesn't need these)
+# Apple-specific validation route
 @app.route('/api/apple-pay/validate-merchant', methods=['POST'])
 def validate_merchant():
-    # ... (Keep your existing merchant validation code here) ...
+    # Insert your merchant validation logic here
     pass
 
 
-# --- UPDATED VERIFICATION ROUTE ---
+# --- APPLE DOMAIN VERIFICATION ROUTE ---
 @app.route('/.well-known/apple-developer-merchantid-domain-association.txt')
 def serve_apple_pay_verification():
-    # We use ROOT_DIR to look outside the 'src' folder
-    well_known_dir = os.path.join(ROOT_DIR, '.well-known')
+    # base_dir points to the root where .well-known folder exists
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    well_known_dir = os.path.join(base_dir, '.well-known')
+
     return send_from_directory(
         well_known_dir,
         'apple-developer-merchantid-domain-association.txt',
