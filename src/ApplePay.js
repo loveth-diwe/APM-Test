@@ -115,6 +115,7 @@ const ApplePay = () => {
                 merchantIdentifier: config.merchantIdentifier,
                 displayName: config.displayName
             });
+            console.log("Apple Pay Session Received:", res.data); // ADD THIS
             session.completeMerchantValidation(res.data);
         } catch (err) {
             console.error("Validation failed", err);
