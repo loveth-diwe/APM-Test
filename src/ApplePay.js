@@ -64,6 +64,12 @@ const ApplePay = () => {
     applePayButton.setAttribute('buttonstyle', 'black');
     applePayButton.setAttribute('type', 'plain');
     applePayButton.setAttribute('locale', 'en-GB');
+    // --- ADD THESE LINES BELOW ---
+    applePayButton.style.display = 'inline-block'; // Ensures it behaves like a block
+    applePayButton.style.width = '100%';           // Sets the width to fill the container
+    applePayButton.style.height = '50px';          // Sets a standard height for the button
+    applePayButton.style.cursor = 'pointer';       // Makes it clear it's clickable
+    // -----------------------------
     containerRef.current?.appendChild(applePayButton);
 
     applePayButton.addEventListener('click', handleApplePay);
