@@ -1,4 +1,4 @@
- # Payment Session - Universal Wallet Processing
+# Payment Session - Universal Wallet Processing
 from flask import Flask, jsonify, request, send_from_directory, render_template
 from flask_cors import CORS
 from checkout_sdk import CheckoutSdk
@@ -6,7 +6,10 @@ from checkout_sdk.environment import Environment
 import json, os, uuid, requests, traceback
 from pathlib import Path
 
+# BASE_DIR is .../src
 BASE_DIR = Path(__file__).resolve().parent
+# ROOT_DIR is .../ (where .well-known lives)
+ROOT_DIR = BASE_DIR.parent
 BUILD_FOLDER = BASE_DIR / 'build'
 
 app = Flask(__name__, static_folder=str(BUILD_FOLDER / 'static'), template_folder=str(BUILD_FOLDER))
@@ -96,10 +99,16 @@ def validate_merchant():
     pass
 
 
+# --- UPDATED VERIFICATION ROUTE ---
 @app.route('/.well-known/apple-developer-merchantid-domain-association.txt')
 def serve_apple_pay_verification():
-    well_known_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.well-known')
-    return send_from_directory(well_known_dir, 'apple-developer-merchantid-domain-association.txt')
+    # We use ROOT_DIR to look outside the 'src' folder
+    well_known_dir = os.path.join(ROOT_DIR, '.well-known')
+    return send_from_directory(
+        well_known_dir,
+        'apple-developer-merchantid-domain-association.txt',
+        mimetype='text/plain'
+    )
 
 
 @app.route('/<path:path>')
