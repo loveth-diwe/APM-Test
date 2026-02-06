@@ -104,6 +104,10 @@ const ApplePay = () => {
 
     session.onvalidatemerchant = async (event) => {
         try {
+                // Ensure Risk is loaded before calling it
+            if (!window.Risk) {
+                throw new Error("Risk.js SDK not loaded yet.");
+            }
             // Risk.js Collection
             const risk = await window.Risk.create("pk_sbox_uzuta5525nrhece4ke67nqtgpik");
             deviceSessionId = await risk.publishRiskData();
